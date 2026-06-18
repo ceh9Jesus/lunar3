@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#080D1F"/><circle cx="50" cy="46" r="22" fill="none" stroke="#8CAFE6" stroke-width="3"/><circle cx="59" cy="40" r="22" fill="#080D1F"/><text x="50" y="86" font-family="Poppins,sans-serif" font-size="12" font-weight="700" letter-spacing="2" fill="#8CAFE6" text-anchor="middle">LUNAR</text></svg></template>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{background:#0a0a12;font-family:'Poppins',sans-serif;}
+  @keyframes twinkle{0%,100%{opacity:0;}50%{opacity:.6;}}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  @keyframes screenIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes slideUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes pop{0%{transform:scale(0);}70%{transform:scale(1.08);}100%{transform:scale(1);}}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  @keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}}
+  @keyframes rowIn{from{opacity:0;transform:translateX(-14px);}to{opacity:1;transform:translateX(0);}}
+  @keyframes flyToCart{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg);}65%{opacity:1;}100%{opacity:0;transform:translate(-48px,468px) scale(.18) rotate(20deg);}}
+  @keyframes tabPulse{0%,100%{transform:scale(1);}45%{transform:scale(1.4);}}
+  @keyframes badgePop{0%{transform:scale(.2);}60%{transform:scale(1.3);}100%{transform:scale(1);}}
+  @keyframes ctaGlow{0%,100%{box-shadow:0 8px 26px var(--glow);}50%{box-shadow:0 10px 40px var(--glow),0 0 0 1px var(--border2);}}
+  @keyframes flavorPop{0%{transform:scale(.4);}55%{transform:scale(1.25);}100%{transform:scale(1);}}
+  @keyframes shimmer{0%{background-position:-160px 0;}100%{background-position:240px 0;}}
+  @keyframes successRing{0%{transform:scale(.7);opacity:.6;}100%{transform:scale(2.2);opacity:0;}}
+  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(38px,34px) scale(1.18);}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1.1);}50%{transform:translate(-46px,38px) scale(.92);}}
+  @keyframes drift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(30px,-42px) scale(1.12);}}
+  @keyframes hueShift{0%,100%{filter:blur(42px) hue-rotate(0deg);}50%{filter:blur(48px) hue-rotate(24deg);}}
+  @keyframes shoot{0%{transform:translate(0,0) rotate(38deg);opacity:0;}6%{opacity:.9;}26%{opacity:.9;}42%{transform:translate(-260px,200px) rotate(38deg);opacity:0;}100%{opacity:0;}}
+  .ln-scroll::-webkit-scrollbar{width:0;height:0;}
+</style>
+<script src="lunar-data.js"></script>
+</helmet>
+
+<div style="min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(120% 90% at 50% 0%,#13182e 0%,#0a0a12 60%);">
+  <div style="{{ rootStyle }}" class="ln-root">
+
+    <!-- living background: nebula blobs + stars + shooting stars -->
+    <div style="position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;border-radius:44px;">
+      <div style="position:absolute;width:300px;height:300px;border-radius:50%;top:-80px;right:-90px;background:radial-gradient(circle,var(--accent),transparent 64%);opacity:.22;filter:blur(44px);animation:drift1 19s ease-in-out infinite;"></div>
+      <div style="position:absolute;width:340px;height:340px;border-radius:50%;bottom:-120px;left:-100px;background:radial-gradient(circle,var(--accent2),transparent 66%);opacity:.18;filter:blur(50px);animation:drift2 26s ease-in-out infinite;"></div>
+      <div style="position:absolute;width:240px;height:240px;border-radius:50%;top:42%;left:34%;background:radial-gradient(circle,var(--accent),transparent 62%);opacity:.12;filter:blur(46px);animation:drift3 32s ease-in-out infinite, hueShift 14s ease-in-out infinite;"></div>
+      <sc-for list="{{ stars }}" as="star" hint-placeholder-count="20">
+        <div style="{{ star.style }}"></div>
+      </sc-for>
+      <div style="position:absolute;top:10%;left:78%;width:2px;height:88px;background:linear-gradient(var(--accent),transparent);border-radius:2px;opacity:0;animation:shoot 9s linear infinite;animation-delay:1.5s;"></div>
+      <div style="position:absolute;top:26%;left:92%;width:2px;height:70px;background:linear-gradient(var(--accent),transparent);border-radius:2px;opacity:0;animation:shoot 11s linear infinite;animation-delay:6s;"></div>
+    </div>
+
+    <!-- status bar -->
+    <div style="position:absolute;top:0;left:0;right:0;height:48px;display:flex;align-items:center;justify-content:space-between;padding:16px 28px 0;z-index:40;color:#fff;font-size:14px;font-weight:600;letter-spacing:.3px;pointer-events:none;">
+      <span>9:41</span>
+      <span style="display:flex;gap:7px;align-items:center;">
+        <svg width="18" height="11" viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"></rect><rect x="5" y="4.5" width="3" height="6.5" rx="1" fill="#fff"></rect><rect x="10" y="2" width="3" height="9" rx="1" fill="#fff"></rect><rect x="15" y="0" width="3" height="11" rx="1" fill="#fff" opacity=".4"></rect></svg>
+        <svg width="16" height="11" viewBox="0 0 16 11"><path d="M8 3C10.2 3 12.2 3.9 13.6 5.3L14.7 4.2C13 2.5 10.6 1.4 8 1.4S3 2.5 1.3 4.2L2.4 5.3C3.8 3.9 5.8 3 8 3Z" fill="#fff"></path><path d="M8 6.4C9.3 6.4 10.5 6.9 11.3 7.8L12.4 6.7C11.2 5.5 9.7 4.8 8 4.8S4.8 5.5 3.6 6.7L4.7 7.8C5.5 6.9 6.7 6.4 8 6.4Z" fill="#fff"></path><circle cx="8" cy="10" r="1.4" fill="#fff"></circle></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12"><rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="#fff" stroke-opacity=".4" fill="none"></rect><rect x="2" y="2" width="17" height="8" rx="1.6" fill="#fff"></rect><rect x="23" y="4" width="1.6" height="4" rx="1" fill="#fff" opacity=".5"></rect></svg>
+      </span>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="ln-scroll" style="position:absolute;inset:0;z-index:1;overflow-y:auto;padding-top:48px;padding-bottom:{{ contentPad }};">
+
+      <!-- ░░ CATALOG ░░ -->
+      <sc-if value="{{ isCatalog }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:screenIn .32s ease;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px 4px;">
+            <div style="display:flex;align-items:center;gap:11px;">
+              <div style="width:36px;height:36px;border-radius:11px;overflow:hidden;box-shadow:0 0 18px var(--glow);"><div style="{{ logoBg }}"></div></div>
+              <span style="font-size:19px;font-weight:700;letter-spacing:3px;color:#fff;">LUNAR</span>
+            </div>
+          </div>
+
+          <div style="padding:22px 22px 6px;text-align:center;">
+            <div style="display:inline-block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);background:var(--glow);border:1px solid var(--border2);border-radius:20px;padding:5px 13px;margin-bottom:14px;font-weight:500;">Оригинал WAKA · Доставка по городу</div>
+            <h2 style="font-size:26px;font-weight:700;line-height:1.25;color:#fff;">Выбери свой <span style="background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">вкус</span></h2>
+            <div style="display:flex;gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap;">
+              <div style="font-size:11.5px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:11px;padding:7px 12px;">🛵 Доставка <b style="color:#fff;font-weight:600;">1000 ₸</b></div>
+              <div style="font-size:11.5px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:11px;padding:7px 12px;">💵 Оплата при получении</div>
+            </div>
+          </div>
+
+          <div style="padding:24px 22px 12px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Каталог</div>
+
+          <div style="padding:0 16px;display:grid;grid-template-columns:1fr 1fr;gap:13px;">
+            <sc-for list="{{ cards }}" as="card" hint-placeholder-count="0">
+              <div style="{{ card.cardStyle }}" style-active="transform:scale(.955)" onClick="{{ card.open }}">
+                <div style="position:relative;height:148px;display:flex;align-items:center;justify-content:center;background:#0A1020;overflow:hidden;">
+                  <span style="position:absolute;top:10px;left:10px;font-size:8.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 8px;border-radius:8px;background:rgba(8,13,31,.7);border:1px solid var(--border2);color:var(--accent);backdrop-filter:blur(6px);">{{ card.tag }}</span>
+                  <div style="{{ card.imgBg }}"></div>
+                </div>
+                <div style="padding:13px 14px 15px;display:flex;flex-direction:column;flex:1;">
+                  <div style="font-size:14.5px;font-weight:700;letter-spacing:.3px;color:#fff;">{{ card.name }}</div>
+                  <div style="font-size:11px;color:var(--accent);font-weight:500;margin-top:1px;">{{ card.puffs }}</div>
+                  <div style="display:flex;gap:4px;margin:10px 0 12px;align-items:center;flex-wrap:wrap;">
+                    <sc-for list="{{ card.dots }}" as="dot" hint-placeholder-count="5">
+                      <span style="{{ dot.style }}"></span>
+                    </sc-for>
+                    <span style="font-size:10px;color:var(--muted2);margin-left:2px;">{{ card.flavorCount }}</span>
+                  </div>
+                  <div style="margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;">
+                    <div style="font-size:16.5px;font-weight:700;line-height:1;color:#fff;">{{ card.price }}<small style="display:block;font-size:9.5px;color:var(--muted);font-weight:400;margin-top:3px;">за штуку</small></div>
+                    <div style="padding:9px 14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--ink);font-size:12.5px;font-weight:700;border-radius:11px;white-space:nowrap;">Выбрать</div>
+                  </div>
+                  <sc-if value="{{ card.inCart }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:10px;font-size:11px;color:var(--accent);font-weight:500;display:flex;align-items:center;gap:5px;background:var(--glow);border-radius:9px;padding:6px 9px;">✓ В корзине</div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ░░ PRODUCT DETAIL ░░ -->
+      <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:screenIn .3s ease;">
+          <div style="display:flex;align-items:center;gap:12px;padding:8px 18px 2px;">
+            <div onClick="{{ goBack }}" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+              <svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M7 2L2 8l5 6" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+            <span style="font-size:13px;font-weight:600;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">Каталог</span>
+          </div>
+
+          <div style="position:relative;margin:8px 18px 4px;border-radius:20px;overflow:hidden;height:230px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#0E1530,#0A1020);">
+            <span style="position:absolute;top:14px;left:14px;font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:5px 9px;border-radius:8px;background:rgba(8,13,31,.7);border:1px solid var(--border2);color:var(--accent);">{{ detail.tag }}</span>
+            <div style="{{ detail.imgBg }}"></div>
+          </div>
+
+          <div style="padding:16px 22px 4px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;">
+            <div>
+              <div style="font-size:21px;font-weight:700;color:#fff;">{{ detail.name }}</div>
+              <div style="font-size:13px;color:var(--accent);margin-top:2px;">{{ detail.puffs }}</div>
+            </div>
+            <div style="font-size:22px;font-weight:700;white-space:nowrap;color:#fff;">{{ detail.price }}</div>
+          </div>
+
+          <div style="padding:18px 22px 10px;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">Выбери вкус</div>
+          <div style="padding:0 18px;display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ detail.flavors }}" as="f" hint-placeholder-count="5">
+              <div style="{{ f.itemStyle }}" onClick="{{ f.select }}">
+                <div style="{{ f.circleStyle }}"></div>
+                <div style="font-size:14.5px;font-weight:500;flex:1;color:#fff;">{{ f.name }}</div>
+                <div style="{{ f.checkStyle }}">
+                  <sc-if value="{{ f.chosen }}" hint-placeholder-val="{{ false }}">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="padding:22px 22px 10px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:15px;font-weight:600;color:#fff;">Количество</span>
+            <div style="display:flex;align-items:center;background:var(--card2);border:1px solid var(--border2);border-radius:13px;overflow:hidden;">
+              <div onClick="{{ detail.dec }}" style="width:44px;height:44px;color:var(--accent);font-size:22px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer;" style-active="transform:scale(.8);opacity:.6">−</div>
+              <span style="min-width:36px;text-align:center;font-size:16px;font-weight:700;color:#fff;">{{ detail.qty }}</span>
+              <div onClick="{{ detail.inc }}" style="width:44px;height:44px;color:var(--accent);font-size:22px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer;" style-active="transform:scale(.8);opacity:.6">+</div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ░░ CART ░░ -->
+      <sc-if value="{{ isCart }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:screenIn .3s ease;padding-top:6px;">
+          <div style="padding:8px 22px 14px;"><div style="font-size:24px;font-weight:700;color:#fff;">Корзина</div><div style="font-size:13px;color:var(--accent);margin-top:2px;">{{ cartSubtitle }}</div></div>
+
+          <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:60px 30px;text-align:center;color:var(--muted);">
+              <div style="font-size:46px;margin-bottom:14px;opacity:.5;">🌙</div>
+              <div style="font-size:15px;line-height:1.5;">Корзина пустая.<br>Добавь что-нибудь из каталога.</div>
+              <div onClick="{{ goCatalog }}" style="margin:22px auto 0;display:inline-block;padding:13px 26px;background:var(--card2);border:1px solid var(--border2);border-radius:13px;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer;">В каталог</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ cartHasItems }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <div style="padding:0 18px;display:flex;flex-direction:column;gap:9px;">
+                <sc-for list="{{ cartRows }}" as="row" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;background:var(--card);border:1px solid var(--border);border-radius:15px;animation:rowIn .35s ease backwards;">
+                    <div style="{{ row.imgBg }}"></div>
+                    <div style="flex:1;min-width:0;">
+                      <div style="font-size:13.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ row.name }}</div>
+                      <div style="font-size:11.5px;color:var(--accent);margin-top:1px;">{{ row.flavor }}</div>
+                      <div style="display:flex;align-items:center;gap:0;margin-top:7px;background:var(--card2);border:1px solid var(--border);border-radius:9px;width:fit-content;overflow:hidden;">
+                        <div onClick="{{ row.dec }}" style="width:28px;height:26px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:16px;cursor:pointer;" style-active="transform:scale(.78);opacity:.6">−</div>
+                        <span style="min-width:24px;text-align:center;font-size:13px;font-weight:700;color:#fff;">{{ row.qty }}</span>
+                        <div onClick="{{ row.inc }}" style="width:28px;height:26px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:16px;cursor:pointer;" style-active="transform:scale(.78);opacity:.6">+</div>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+                      <div style="font-size:14px;font-weight:700;color:#fff;">{{ row.line }}</div>
+                      <div onClick="{{ row.remove }}" style="color:var(--muted2);font-size:17px;cursor:pointer;line-height:1;" style-active="transform:scale(.8);color:#FF8A9B">✕</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="padding:18px 22px 4px;">
+                <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:14px;color:var(--muted);"><span>Товары</span><span style="color:#fff;font-weight:500;">{{ sumGoods }}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:14px;color:var(--muted);"><span>Доставка</span><span style="color:#fff;font-weight:500;">{{ sumDeliv }}</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);margin-top:8px;padding-top:13px;"><span style="font-size:15px;color:#fff;font-weight:600;">Итого</span><span style="font-size:22px;font-weight:700;color:#fff;">{{ sumTotal }}</span></div>
+              </div>
+
+              <div onClick="{{ goCheckout }}" style="margin:18px 18px 8px;padding:17px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--ink);font-size:16px;font-weight:700;border-radius:15px;text-align:center;cursor:pointer;box-shadow:0 8px 28px var(--glow);transition:transform .14s ease;" style-active="transform:scale(.97)">Перейти к оформлению</div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ░░ CHECKOUT ░░ -->
+      <sc-if value="{{ isCheckout }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:screenIn .3s ease;">
+          <div style="display:flex;align-items:center;gap:12px;padding:8px 18px 6px;">
+            <div onClick="{{ goCart }}" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M7 2L2 8l5 6" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+            <span style="font-size:24px;font-weight:700;color:#fff;">Оформление</span>
+          </div>
+
+          <div style="padding:14px 18px 4px;">
+            <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:14px;color:var(--muted);"><span>Товары</span><span style="color:#fff;font-weight:500;">{{ sumGoods }}</span></div>
+            <div style="display:flex;justify-content:space-between;padding:5px 0;font-size:14px;color:var(--muted);"><span>Доставка</span><span style="color:#fff;font-weight:500;">{{ sumDeliv }}</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);margin-top:8px;padding-top:12px;"><span style="font-size:15px;color:#fff;font-weight:600;">Итого</span><span style="font-size:21px;font-weight:700;color:#fff;">{{ sumTotal }}</span></div>
+          </div>
+
+          <div style="padding:0 18px;display:flex;flex-direction:column;gap:13px;margin-top:8px;">
+            <div style="display:flex;flex-direction:column;gap:6px;"><div style="font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;">Имя</div><input value="{{ form.name }}" onInput="{{ setName }}" placeholder="Как к тебе обращаться" style="background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px 16px;font-size:15px;color:#fff;font-family:inherit;outline:none;"></div>
+            <div style="display:flex;flex-direction:column;gap:6px;"><div style="font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;">Телефон</div><input value="{{ form.phone }}" onInput="{{ setPhone }}" placeholder="+7 7XX XXX XX XX" style="background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px 16px;font-size:15px;color:#fff;font-family:inherit;outline:none;"></div>
+            <div style="display:flex;flex-direction:column;gap:6px;"><div style="font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;">Адрес доставки</div><input value="{{ form.address }}" onInput="{{ setAddress }}" placeholder="Улица, дом, квартира" style="background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px 16px;font-size:15px;color:#fff;font-family:inherit;outline:none;"></div>
+            <div style="display:flex;flex-direction:column;gap:6px;"><div style="font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;">Комментарий</div><input value="{{ form.comment }}" onInput="{{ setComment }}" placeholder="Подъезд, ориентир, время" style="background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px 16px;font-size:15px;color:#fff;font-family:inherit;outline:none;"></div>
+          </div>
+          <div style="margin:14px 18px 0;padding:12px 14px;background:var(--glow);border:1px solid var(--border2);border-radius:13px;font-size:12.5px;color:var(--accent);display:flex;align-items:center;gap:9px;">💵 Оплата только при получении — наличными или картой курьеру.</div>
+          <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:12px 18px 0;font-size:12.5px;color:#FF8A9B;text-align:center;">{{ formErrorText }}</div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ░░ ORDERS ░░ -->
+      <sc-if value="{{ isOrders }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:screenIn .3s ease;padding-top:6px;">
+          <div style="padding:8px 22px 14px;"><div style="font-size:24px;font-weight:700;color:#fff;">Мои заказы</div><div style="font-size:13px;color:var(--accent);margin-top:2px;">{{ ordersSubtitle }}</div></div>
+          <sc-if value="{{ ordersEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:60px 30px;text-align:center;color:var(--muted);"><div style="font-size:46px;margin-bottom:14px;opacity:.5;">🛍️</div><div style="font-size:15px;line-height:1.5;">Заказов пока нет.<br>Самое время это исправить.</div><div onClick="{{ goCatalog }}" style="margin:22px auto 0;display:inline-block;padding:13px 26px;background:var(--card2);border:1px solid var(--border2);border-radius:13px;color:var(--accent);font-size:14px;font-weight:600;cursor:pointer;">В каталог</div></div>
+          </sc-if>
+          <sc-if value="{{ ordersHas }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 18px;display:flex;flex-direction:column;gap:12px;">
+              <sc-for list="{{ orderRows }}" as="o" hint-placeholder-count="2">
+                <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px 16px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:13px;color:var(--muted);">{{ o.date }}</span>
+                    <span style="font-size:10.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--success);background:rgba(91,211,154,.12);border-radius:8px;padding:4px 9px;">{{ o.status }}</span>
+                  </div>
+                  <div style="font-size:13.5px;color:#fff;line-height:1.5;margin-top:10px;">{{ o.items }}</div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);margin-top:12px;padding-top:11px;"><span style="font-size:12.5px;color:var(--muted);">{{ o.count }}</span><span style="font-size:17px;font-weight:700;color:#fff;">{{ o.total }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ░░ PROFILE ░░ -->
+      <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:screenIn .3s ease;padding-top:6px;">
+          <div style="padding:18px 22px 6px;text-align:center;">
+            <div style="width:84px;height:84px;border-radius:26px;overflow:hidden;margin:0 auto 14px;box-shadow:0 0 40px var(--glow);animation:floaty 5s ease-in-out infinite;"><div style="{{ logoBg }}"></div></div>
+            <div style="font-size:21px;font-weight:700;color:#fff;">{{ profileName }}</div>
+            <div style="font-size:13.5px;color:var(--muted);margin-top:3px;">{{ profilePhone }}</div>
+          </div>
+          <div style="padding:18px 18px 0;display:flex;gap:12px;">
+            <div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center;"><div style="font-size:24px;font-weight:700;color:#fff;">{{ profileOrders }}</div><div style="font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.5px;text-transform:uppercase;">заказов</div></div>
+            <div style="flex:1.4;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;text-align:center;"><div style="font-size:24px;font-weight:700;color:#fff;">{{ profileSpent }}</div><div style="font-size:11px;color:var(--muted);margin-top:3px;letter-spacing:.5px;text-transform:uppercase;">потрачено</div></div>
+          </div>
+          <div style="padding:20px 18px 0;display:flex;flex-direction:column;gap:9px;">
+            <div onClick="{{ goOrders }}" style="display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 16px;cursor:pointer;transition:transform .14s ease;" style-active="transform:scale(.98);background:var(--card2)"><span style="font-size:18px;">🛍️</span><span style="flex:1;font-size:14.5px;color:#fff;font-weight:500;">Мои заказы</span><span style="color:var(--muted2);">›</span></div>
+            <div onClick="{{ goAddresses }}" style="display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 16px;cursor:pointer;transition:transform .14s ease;" style-active="transform:scale(.98);background:var(--card2)"><span style="font-size:18px;">📍</span><span style="flex:1;font-size:14.5px;color:#fff;font-weight:500;">Адреса доставки</span><span style="color:var(--muted2);">›</span></div>
+            <div onClick="{{ openSupport }}" style="display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 16px;cursor:pointer;transition:transform .14s ease;" style-active="transform:scale(.98);background:var(--card2)"><span style="font-size:18px;">💬</span><span style="flex:1;font-size:14.5px;color:#fff;font-weight:500;">Поддержка</span><span style="font-size:12px;color:var(--accent);font-weight:500;">@lunar_shop_kst</span><span style="color:var(--muted2);">›</span></div>
+            <div onClick="{{ goAbout }}" style="display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 16px;cursor:pointer;transition:transform .14s ease;" style-active="transform:scale(.98);background:var(--card2)"><span style="font-size:18px;">🌙</span><span style="flex:1;font-size:14.5px;color:#fff;font-weight:500;">О магазине</span><span style="color:var(--muted2);">›</span></div>
+          </div>
+          <div style="text-align:center;font-size:11px;color:var(--muted2);margin-top:22px;line-height:1.5;"></div>
+        </div>
+      </sc-if>
+
+      <!-- ░░ ADDRESSES ░░ -->
+      <sc-if value="{{ isAddresses }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:screenIn .3s ease;padding-top:6px;">
+          <div style="display:flex;align-items:center;gap:12px;padding:8px 18px 14px;">
+            <div onClick="{{ goProfile }}" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;" style-active="transform:scale(.92)"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M7 2L2 8l5 6" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+            <div><div style="font-size:22px;font-weight:700;color:#fff;">Адреса</div><div style="font-size:12.5px;color:var(--accent);margin-top:1px;">из твоих заказов</div></div>
+          </div>
+          <sc-if value="{{ addressesEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:50px 30px;text-align:center;color:var(--muted);"><div style="font-size:42px;margin-bottom:14px;opacity:.5;">📍</div><div style="font-size:14.5px;line-height:1.5;">Пока нет сохранённых адресов.<br>Они появятся после первого заказа.</div></div>
+          </sc-if>
+          <div style="padding:0 18px;display:flex;flex-direction:column;gap:9px;">
+            <sc-for list="{{ addressRows }}" as="a" hint-placeholder-count="0">
+              <div style="display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px 16px;">
+                <span style="font-size:17px;margin-top:1px;">📍</span>
+                <div style="flex:1;min-width:0;"><div style="font-size:14px;color:#fff;line-height:1.45;">{{ a.text }}</div></div>
+                <sc-if value="{{ a.primary }}" hint-placeholder-val="{{ false }}"><span style="font-size:9.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);background:var(--glow);border:1px solid var(--border2);border-radius:7px;padding:4px 8px;white-space:nowrap;">Основной</span></sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ░░ ABOUT ░░ -->
+      <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:screenIn .3s ease;padding-top:6px;">
+          <div style="display:flex;align-items:center;gap:12px;padding:8px 18px 14px;">
+            <div onClick="{{ goProfile }}" style="width:38px;height:38px;border-radius:50%;background:var(--card2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;" style-active="transform:scale(.92)"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M7 2L2 8l5 6" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+            <div style="font-size:22px;font-weight:700;color:#fff;">О магазине</div>
+          </div>
+
+          <div style="padding:6px 22px 4px;text-align:center;">
+            <div style="width:72px;height:72px;border-radius:22px;overflow:hidden;margin:0 auto 14px;box-shadow:0 0 40px var(--glow);"><div style="{{ logoBg }}"></div></div>
+            <div style="font-size:20px;font-weight:700;letter-spacing:3px;color:#fff;">LUNAR</div>
+            <div style="font-size:12px;color:var(--accent);margin-top:3px;line-height:1.5;">Премиальный вейп-шоп<br>Оригинал WAKA · доставка по городу</div>
+          </div>
+
+          <div style="padding:18px 18px 0;display:flex;flex-direction:column;gap:9px;">
+            <div style="display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;"><span style="font-size:18px;">🕐</span><div style="flex:1;"><div style="font-size:13.5px;color:#fff;font-weight:500;">Часы работы</div><div style="font-size:12px;color:var(--muted);margin-top:1px;">Ежедневно, 11:00 – 23:00</div></div></div>
+            <div style="display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;"><span style="font-size:18px;">🛵</span><div style="flex:1;"><div style="font-size:13.5px;color:#fff;font-weight:500;">Доставка</div><div style="font-size:12px;color:var(--muted);margin-top:1px;">По городу, 1000 ₸ · 30–90 мин</div></div></div>
+            <div style="display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;"><span style="font-size:18px;">💵</span><div style="flex:1;"><div style="font-size:13.5px;color:#fff;font-weight:500;">Оплата</div><div style="font-size:12px;color:var(--muted);margin-top:1px;">При получении — наличными или картой</div></div></div>
+            <div onClick="{{ openSupport }}" style="display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;cursor:pointer;transition:transform .14s ease;" style-active="transform:scale(.98);background:var(--card2)"><span style="font-size:18px;">💬</span><div style="flex:1;"><div style="font-size:13.5px;color:#fff;font-weight:500;">Связь и поддержка</div><div style="font-size:12px;color:var(--accent);margin-top:1px;">@lunar_shop_kst</div></div><span style="color:var(--muted2);">›</span></div>
+          </div>
+
+          <div style="text-align:center;font-size:11px;color:var(--muted2);margin-top:22px;line-height:1.5;padding:0 30px;">Никотин вызывает зависимость.<br>Продажа только лицам 18+.</div>
+        </div>
+      </sc-if>
+
+    </div>
+
+    <!-- PRODUCT CTA -->
+    <sc-if value="{{ productCTA }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:30;padding:14px 18px 26px;background:linear-gradient(180deg,transparent,var(--bg) 30%);">
+        <div onClick="{{ detail.add }}" style="{{ detail.addStyle }}" style-active="transform:scale(.97)">{{ detail.addLabel }}</div>
+      </div>
+    </sc-if>
+
+    <!-- CHECKOUT CTA -->
+    <sc-if value="{{ checkoutCTA }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:30;padding:14px 18px 26px;background:linear-gradient(180deg,transparent,var(--bg) 30%);">
+        <div onClick="{{ submitOrder }}" style="padding:17px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--ink);font-size:16px;font-weight:700;border-radius:15px;text-align:center;cursor:pointer;box-shadow:0 8px 28px var(--glow);animation:ctaGlow 2.6s ease-in-out infinite;transition:transform .14s ease;" style-active="transform:scale(.97)">Оформить заказ · {{ sumTotal }}</div>
+      </div>
+    </sc-if>
+
+    <!-- FLY TO CART -->
+    <sc-if value="{{ flying }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ flyStyle }}"></div>
+    </sc-if>
+
+    <!-- BOTTOM NAV -->
+    <sc-if value="{{ navVisible }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:25;height:82px;padding:9px 12px 22px;display:flex;align-items:flex-start;background:var(--bg2);border-top:1px solid var(--border);">
+        <div onClick="{{ goCatalog }}" style="{{ tabCatalog }}" style-active="transform:scale(.86)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"></rect><rect x="14" y="3" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"></rect><rect x="3" y="14" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"></rect><rect x="14" y="14" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.8"></rect></svg>
+          <span>Каталог</span>
+        </div>
+        <div onClick="{{ goCart }}" style="{{ tabCart }}" style-active="transform:scale(.86)">
+          <div style="{{ cartIconStyle }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 3h2.5l2.5 12h10l2.2-8H6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.5" fill="currentColor"></circle><circle cx="17" cy="19" r="1.5" fill="currentColor"></circle></svg>
+            <sc-if value="{{ cartCountShow }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:-6px;right:-8px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--ink);font-size:9.5px;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;animation:badgePop .4s ease;">{{ cartCount }}</span></sc-if>
+          </div>
+          <span>Корзина</span>
+        </div>
+        <div onClick="{{ goOrders }}" style="{{ tabOrders }}" style-active="transform:scale(.86)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7l8-4 8 4v10l-8 4-8-4V7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M4 7l8 4 8-4M12 11v10" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+          <span>Заказы</span>
+        </div>
+        <div onClick="{{ goProfile }}" style="{{ tabProfile }}" style-active="transform:scale(.86)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"></circle><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          <span>Профиль</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- SUCCESS -->
+    <sc-if value="{{ showSuccess }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:60;background:radial-gradient(125% 85% at 50% 18%, var(--card) 0%, var(--bg) 58%);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px;border-radius:44px;animation:fadeIn .3s ease;">
+        <div style="position:absolute;width:300px;height:300px;border-radius:50%;top:-60px;right:-70px;background:radial-gradient(circle,var(--success),transparent 66%);opacity:.16;filter:blur(48px);animation:drift1 20s ease-in-out infinite;pointer-events:none;"></div>
+        <div style="position:absolute;width:280px;height:280px;border-radius:50%;bottom:-90px;left:-80px;background:radial-gradient(circle,var(--accent),transparent 66%);opacity:.14;filter:blur(48px);animation:drift2 28s ease-in-out infinite;pointer-events:none;"></div>
+        <div style="width:92px;height:92px;background:rgba(91,211,154,.14);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:26px;font-size:44px;color:var(--success);box-shadow:0 0 50px rgba(91,211,154,.25);animation:pop .45s cubic-bezier(.2,1.4,.5,1);">✓</div>
+        <h2 style="font-size:25px;font-weight:700;color:#fff;margin-bottom:12px;">Заказ принят</h2>
+        <p style="font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 300px">Мы позвоним тебе по указанному номеру в течение пары минут, чтобы подтвердить заказ и время доставки. Если удобнее в Telegram — напиши нам сам: @lunar_shop_kst. Оплата при получении.</p>
+        <div onClick="{{ goCatalog }}" style="margin-top:30px;padding:15px 40px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--ink);font-size:15px;font-weight:700;border-radius:14px;cursor:pointer;box-shadow:0 8px 26px var(--glow);transition:transform .14s ease;" style-active="transform:scale(.96)">Готово</div>
+      </div>
+    </sc-if>
+
+    <!-- AGE GATE -->
+    <sc-if value="{{ showGate }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:70;background:radial-gradient(125% 85% at 50% 14%, var(--card) 0%, var(--bg) 58%);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px 26px;border-radius:44px;animation:fadeIn .3s ease;">
+        <div style="position:absolute;width:280px;height:280px;border-radius:50%;top:-70px;right:-80px;background:radial-gradient(circle,var(--accent),transparent 64%);opacity:.22;filter:blur(46px);animation:drift1 19s ease-in-out infinite;pointer-events:none;"></div>
+        <div style="position:absolute;width:300px;height:300px;border-radius:50%;bottom:-100px;left:-90px;background:radial-gradient(circle,var(--accent2),transparent 66%);opacity:.16;filter:blur(50px);animation:drift2 26s ease-in-out infinite;pointer-events:none;"></div>
+        <div style="width:120px;height:120px;margin-bottom:24px;border-radius:30px;overflow:hidden;box-shadow:0 0 60px var(--glow);animation:floaty 5s ease-in-out infinite;"><div style="{{ logoBg }}"></div></div>
+        <h1 style="font-size:32px;font-weight:800;letter-spacing:8px;color:#fff;margin-bottom:6px;">LUNAR</h1>
+        <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:30px;font-weight:500;">Premium Vape Store</div>
+        <p style="font-size:15px;color:var(--muted);line-height:1.6;max-width:280px;margin-bottom:30px;">Магазин для совершеннолетних. Подтверди, что тебе <strong style="color:#fff;font-weight:600;">18 лет и больше</strong>.</p>
+        <div onClick="{{ enter }}" style="width:100%;max-width:300px;padding:17px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--ink);font-size:16px;font-weight:700;border-radius:16px;cursor:pointer;margin-bottom:12px;box-shadow:0 8px 30px var(--glow);animation:ctaGlow 2.6s ease-in-out infinite;transition:transform .14s ease;" style-active="transform:scale(.97)">Мне есть 18 — продолжить</div>
+        <div onClick="{{ deny }}" style="width:100%;max-width:300px;padding:15px;color:var(--muted);font-size:14px;border:1px solid var(--border2);border-radius:16px;cursor:pointer;transition:transform .14s ease;" style-active="transform:scale(.97)">Мне нет 18</div>
+        <div style="margin-top:28px;font-size:11px;color:var(--muted2);max-width:280px;line-height:1.5;">Никотин вызывает зависимость. Продажа только лицам 18+.</div>
+      </div>
+    </sc-if>
+
+    <!-- DENIED -->
+    <sc-if value="{{ showDenied }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:75;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px;border-radius:44px;">
+        <div style="font-size:52px;margin-bottom:20px;">🔞</div>
+        <h1 style="font-size:24px;font-weight:700;color:#fff;margin-bottom:12px;">Доступ закрыт</h1>
+        <p style="font-size:15px;color:var(--muted);">Магазин только для совершеннолетних.</p>
+      </div>
+    </sc-if>
+
+    <!-- SPLASH -->
+    <sc-if value="{{ showSplash }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;inset:0;z-index:80;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:44px;">
+        <div style="width:90px;height:90px;border-radius:24px;background:var(--card2);animation:floaty 4s ease-in-out infinite;box-shadow:0 0 40px var(--glow);"></div>
+        <div style="font-size:13px;letter-spacing:6px;color:var(--accent);margin-top:24px;font-weight:600;">LUNAR</div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:470,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Deep Space&quot;,&quot;Nebula&quot;,&quot;Aurora&quot;],&quot;default&quot;:&quot;Nebula&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    const rnd = (n)=>Math.random()*n;
+    const saved = this.loadSaved();
+    this.state = {
+      ready:false, products:[], logo:'',
+      entered:saved.entered||false, denied:false,
+      screen:'catalog',
+      selectedId:null, detailFlavorIdx:null, detailQty:1,
+      cart:saved.cart||[], orders:saved.orders||[],
+      form:saved.form||{name:'',phone:'',address:'',comment:''},
+      addresses:saved.addresses||[],
+      formError:false, formErrorText:'',
+      showSuccess:false,
+      flying:null,
+      stars:Array.from({length:26},()=>({l:rnd(100),t:rnd(100),s:rnd(2)+1,d:rnd(4)})),
+    };
+  }
+  loadSaved(){
+    try { return JSON.parse(localStorage.getItem('lunar_state')||'{}'); } catch(e){ return {}; }
+  }
+  persist(){
+    try {
+      const {cart,orders,form,addresses,entered} = this.state;
+      localStorage.setItem('lunar_state', JSON.stringify({cart,orders,form,addresses,entered}));
+    } catch(e){}
+  }
+  componentDidUpdate(){ this.persist(); }
+  componentDidMount(){
+    const tryLoad = ()=>{
+      if(window.LUNAR_DATA){
+        this.setState({ready:true, products:window.LUNAR_DATA.PRODUCTS, logo:window.LUNAR_DATA.LOGO});
+      } else { this._t = setTimeout(tryLoad, 60); }
+    };
+    tryLoad();
+  }
+  componentWillUnmount(){ if(this._t) clearTimeout(this._t); if(this._ft) clearTimeout(this._ft); }
+
+  themes(){
+    return {
+      'Deep Space':{bg:'#080D1F',bg2:'#0B1226',card:'#0F1730',card2:'#16203C',accent:'#8CAFE6',accent2:'#6E97D6',glow:'rgba(140,175,230,0.18)',muted:'#8295BC',muted2:'#54648A',border:'rgba(140,175,230,0.12)',border2:'rgba(140,175,230,0.28)',success:'#5BD39A',ink:'#0A1228'},
+      'Nebula':{bg:'#0E0A1F',bg2:'#140C26',card:'#1A1233',card2:'#241640',accent:'#B98CE6',accent2:'#9E6ED6',glow:'rgba(185,140,230,0.18)',muted:'#A795BC',muted2:'#6A548A',border:'rgba(185,140,230,0.12)',border2:'rgba(185,140,230,0.28)',success:'#5BD39A',ink:'#160A28'},
+      'Aurora':{bg:'#06130F',bg2:'#0A1A14',card:'#0E2018',card2:'#142C20',accent:'#6FD6A8',accent2:'#4FB98A',glow:'rgba(111,214,168,0.18)',muted:'#82BCA0',muted2:'#548A6E',border:'rgba(111,214,168,0.12)',border2:'rgba(111,214,168,0.28)',success:'#5BD39A',ink:'#062014'},
+    };
+  }
+
+  fmt(n){ return n.toLocaleString('ru')+' \u20b8'; }
+  goods(){ return this.state.cart.reduce((s,c)=>s+c.qty*c.price,0); }
+  total(){ return this.state.cart.length ? this.goods()+1000 : 0; }
+
+  openProduct(id){ this.setState({selectedId:id, detailFlavorIdx:null, detailQty:1, screen:'product'}); }
+  addToCart(){
+    const p = this.state.products.find(x=>x.id===this.state.selectedId);
+    if(!p || this.state.detailFlavorIdx==null) return;
+    const f = p.flavors[this.state.detailFlavorIdx];
+    const cart = this.state.cart.map(c=>({...c}));
+    const ex = cart.find(c=>c.id===p.id && c.flavor===f.n);
+    if(ex) ex.qty += this.state.detailQty;
+    else cart.push({id:p.id,name:p.name,img:p.img,price:p.price,flavor:f.n,qty:this.state.detailQty});
+    this.setState({cart, screen:'catalog', flying:{img:p.img, n:Date.now()}});
+    if(this._ft) clearTimeout(this._ft);
+    this._ft = setTimeout(()=>this.setState({flying:null}), 820);
+  }
+  removeRow(i){ const cart=this.state.cart.slice(); cart.splice(i,1); this.setState({cart}); }
+  rowQty(i,d){ const cart=this.state.cart.map(c=>({...c})); cart[i].qty=Math.max(1,Math.min(20,cart[i].qty+d)); this.setState({cart}); }
+  setField(k,v){ this.setState(s=>({form:{...s.form,[k]:v}, formError:false})); }
+
+  submitOrder(){
+    const {name,phone,address} = this.state.form;
+    if(!name.trim()||!phone.trim()||!address.trim()){
+      this.setState({formError:true, formErrorText:'Заполни имя, телефон и адрес доставки'});
+      return;
+    }
+    if(!this.state.cart.length) return;
+    const now = new Date();
+    const dd = now.toLocaleDateString('ru',{day:'2-digit',month:'long'})+', '+now.toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit'});
+    const order = {
+      id:Date.now(),
+      items:this.state.cart.map(c=>({name:c.name,flavor:c.flavor,qty:c.qty,price:c.price})),
+      count:this.state.cart.reduce((s,c)=>s+c.qty,0),
+      total:this.total(), date:dd,
+    };
+    const addr = address.trim();
+    const addresses = this.state.addresses.includes(addr) ? this.state.addresses : [addr, ...this.state.addresses].slice(0,5);
+    this.setState({orders:[order,...this.state.orders], cart:[], showSuccess:true, addresses});
+  }
+
+  renderVals(){
+    const s = this.state;
+    const c = this.themes()[this.props.theme || 'Nebula'] || this.themes()['Nebula'];
+    const rootStyle = {
+      position:'relative', width:'390px', height:'844px', borderRadius:'44px', overflow:'hidden',
+      background:c.bg, boxShadow:'0 50px 100px rgba(0,0,0,0.55), 0 0 0 10px #05060c, 0 0 0 11px rgba(255,255,255,0.06)',
+      fontFamily:"'Poppins',sans-serif", flexShrink:0,
+      '--bg':c.bg,'--bg2':c.bg2,'--card':c.card,'--card2':c.card2,'--accent':c.accent,'--accent2':c.accent2,
+      '--glow':c.glow,'--muted':c.muted,'--muted2':c.muted2,'--border':c.border,'--border2':c.border2,'--success':c.success,'--ink':c.ink,
+    };
+    const logoBg = {width:'100%',height:'100%',backgroundImage:`url("${s.logo}")`,backgroundSize:'cover',backgroundPosition:'center',borderRadius:'inherit'};
+    const stars = s.stars.map(st=>({style:{position:'absolute',left:st.l+'%',top:st.t+'%',width:st.s+'px',height:st.s+'px',borderRadius:'50%',background:'var(--accent)',opacity:0,animation:`twinkle 4s ${st.d}s infinite ease-in-out`}}));
+
+    const screen = s.screen;
+    const isCatalog = s.ready && screen==='catalog';
+    const isProduct = s.ready && screen==='product';
+    const isCart = s.ready && screen==='cart';
+    const isCheckout = s.ready && screen==='checkout';
+    const isOrders = s.ready && screen==='orders';
+    const isProfile = s.ready && screen==='profile';
+    const isAddresses = s.ready && screen==='addresses';
+    const isAbout = s.ready && screen==='about';
+
+    const cards = s.products.map((p,i)=>({
+      id:p.id, name:p.name, puffs:p.puffs, tag:p.tag, img:p.img,
+      price:this.fmt(p.price),
+      flavorCount:p.flavors.length+' вкусов',
+      dots:p.flavors.slice(0,5).map(f=>({style:{width:'9px',height:'9px',borderRadius:'50%',flexShrink:0,background:f.c}})),
+      imgBg:{height:'138px',width:'80%',backgroundImage:`url("${p.img}")`,backgroundSize:'contain',backgroundRepeat:'no-repeat',backgroundPosition:'center',filter:'drop-shadow(0 14px 20px rgba(0,0,0,.5))'},
+      inCart:s.cart.some(x=>x.id===p.id),
+      cardStyle:{background:'linear-gradient(180deg,var(--card),var(--bg2))',border:'1px solid '+(s.cart.some(x=>x.id===p.id)?'var(--border2)':'var(--border)'),borderRadius:'20px',overflow:'hidden',display:'flex',flexDirection:'column',cursor:'pointer',boxShadow:s.cart.some(x=>x.id===p.id)?'0 0 0 1px var(--border2)':'none',transition:'transform .15s ease, box-shadow .2s ease',animation:`cardIn .5s cubic-bezier(.2,.8,.3,1) ${(i*0.06).toFixed(2)}s backwards`},
+      open:()=>this.openProduct(p.id),
+    }));
+
+    const p = s.products.find(x=>x.id===s.selectedId);
+    let detail = null;
+    if(p){
+      const canAdd = s.detailFlavorIdx!=null;
+      detail = {
+        name:p.name, puffs:p.puffs, tag:p.tag, price:this.fmt(p.price), qty:s.detailQty,
+        imgBg:{height:'200px',width:'70%',backgroundImage:`url("${p.img}")`,backgroundSize:'contain',backgroundRepeat:'no-repeat',backgroundPosition:'center',filter:'drop-shadow(0 18px 26px rgba(0,0,0,.55))'},
+        flavors:p.flavors.map((f,i)=>{
+          const chosen = s.detailFlavorIdx===i;
+          return {
+            name:f.n, chosen,
+            itemStyle:{display:'flex',alignItems:'center',gap:'13px',padding:'13px 15px',background:chosen?'var(--glow)':'var(--card)',border:'1px solid '+(chosen?'var(--accent)':'var(--border)'),borderRadius:'14px',cursor:'pointer',transition:'background .2s ease, border-color .2s ease, transform .14s ease'},
+            circleStyle:{width:'30px',height:'30px',borderRadius:'50%',flexShrink:0,background:f.c,boxShadow:chosen?'inset 0 0 0 1px rgba(255,255,255,.12), 0 0 14px '+f.c:'inset 0 0 0 1px rgba(255,255,255,.12)',transition:'box-shadow .25s ease'},
+            checkStyle:{width:'24px',height:'24px',borderRadius:'50%',flexShrink:0,display:'flex',alignItems:'center',justifyContent:'center',border:'2px solid '+(chosen?'var(--accent)':'var(--muted2)'),background:chosen?'var(--accent)':'transparent',transition:'border-color .2s ease',animation:chosen?'flavorPop .35s ease':'none'},
+            select:()=>this.setState({detailFlavorIdx:i}),
+          };
+        }),
+        addLabel: canAdd?'Добавить в корзину':'Сначала выбери вкус',
+        addStyle:{padding:'17px',background:'linear-gradient(135deg,var(--accent),var(--accent2))',color:'var(--ink)',fontSize:'16px',fontWeight:700,borderRadius:'15px',textAlign:'center',cursor:canAdd?'pointer':'not-allowed',opacity:canAdd?1:0.4,boxShadow:canAdd?'0 8px 28px var(--glow)':'none',transition:'transform .14s ease, opacity .25s ease',animation:canAdd?'ctaGlow 2.6s ease-in-out infinite':'none'},
+        inc:()=>this.setState(st=>({detailQty:Math.min(20,st.detailQty+1)})),
+        dec:()=>this.setState(st=>({detailQty:Math.max(1,st.detailQty-1)})),
+        add:()=>this.addToCart(),
+      };
+    }
+
+    const cartRows = s.cart.map((c2,i)=>({
+      name:c2.name, flavor:c2.flavor, qty:c2.qty, line:this.fmt(c2.qty*c2.price),
+      imgBg:{width:'50px',height:'50px',borderRadius:'11px',background:'var(--card2)',flexShrink:0,backgroundImage:`url("${c2.img}")`,backgroundSize:'76%',backgroundRepeat:'no-repeat',backgroundPosition:'center'},
+      remove:()=>this.removeRow(i), inc:()=>this.rowQty(i,1), dec:()=>this.rowQty(i,-1),
+    }));
+    const cartCount = s.cart.reduce((a,b)=>a+b.qty,0);
+    const cartHasItems = s.cart.length>0;
+
+    const orderRows = s.orders.map(o=>({
+      date:o.date, status:'Принят', count:o.count+' поз.', total:this.fmt(o.total),
+      items:o.items.map(it=>it.name+' · '+it.flavor+' ×'+it.qty).join('\n'),
+    }));
+    const totalSpent = s.orders.reduce((a,o)=>a+o.total,0);
+
+    const tabBase = {flex:1,display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',cursor:'pointer',fontSize:'10px',fontWeight:600,letterSpacing:'.3px',background:'none',border:'none',fontFamily:'inherit',transition:'transform .14s ease, color .2s ease'};
+    const tab=(active)=>({...tabBase,color:active?'var(--accent)':'var(--muted2)'});
+
+    const flyStyle = s.flying ? {position:'absolute',left:'50%',top:'285px',width:'72px',height:'72px',marginLeft:'-36px',zIndex:36,backgroundImage:`url("${s.flying.img}")`,backgroundSize:'contain',backgroundRepeat:'no-repeat',backgroundPosition:'center',pointerEvents:'none',filter:'drop-shadow(0 12px 20px rgba(0,0,0,.55))',animation:'flyToCart .8s cubic-bezier(.55,.06,.68,.99) forwards'} : null;
+    const cartTabStyle = {...tab(isCart)};
+    const cartIconStyle = s.flying ? {position:'relative',animation:'tabPulse .5s ease .5s'} : {position:'relative'};
+
+    return {
+      rootStyle, stars, logo:s.logo, logoBg, contentPad: (isProduct||isCheckout)?'104px':( (screen==='catalog'||screen==='cart'||screen==='orders'||screen==='profile'||screen==='addresses')?'96px':'24px'),
+      isCatalog, isProduct, isCart, isCheckout, isOrders, isProfile, isAddresses, isAbout,
+      addressRows: s.addresses.map((a,i)=>({text:a, primary:i===0})),
+      addressesEmpty: s.addresses.length===0,
+      cards, detail,
+      cartRows, cartHasItems, cartEmpty:!cartHasItems,
+      cartSubtitle: cartHasItems ? (cartCount+' поз. · '+this.fmt(this.goods())) : 'пусто',
+      sumGoods:this.fmt(this.goods()), sumDeliv:this.fmt(1000), sumTotal:this.fmt(this.total()),
+      cartCount, cartCountShow:cartCount>0,
+      orderRows, ordersHas:s.orders.length>0, ordersEmpty:s.orders.length===0,
+      ordersSubtitle: s.orders.length? (s.orders.length+' '+(s.orders.length===1?'заказ':'заказа')) : 'история пуста',
+      profileName: s.form.name.trim()||'Гость LUNAR',
+      profilePhone: s.form.phone.trim()||'Телефон не указан',
+      profileOrders: s.orders.length, profileSpent:this.fmt(totalSpent),
+      form:s.form,
+      setName:(e)=>this.setField('name',e.target.value),
+      setPhone:(e)=>this.setField('phone',e.target.value),
+      setAddress:(e)=>this.setField('address',e.target.value),
+      setComment:(e)=>this.setField('comment',e.target.value),
+      formError:s.formError, formErrorText:s.formErrorText,
+      submitOrder:()=>this.submitOrder(),
+      goBack:()=>this.setState({screen:'catalog'}),
+      goCatalog:()=>this.setState({screen:'catalog', showSuccess:false}),
+      goCart:()=>this.setState({screen:'cart'}),
+      goCheckout:()=>this.setState({screen:'checkout'}),
+      goOrders:()=>this.setState({screen:'orders'}),
+      goProfile:()=>this.setState({screen:'profile'}),
+      goAddresses:()=>this.setState({screen:'addresses'}),
+      goAbout:()=>this.setState({screen:'about'}),
+      openSupport:()=>{ window.open('https://t.me/lunar_shop_kst','_blank'); },
+      enter:()=>this.setState({entered:true}),
+      deny:()=>this.setState({denied:true}),
+      productCTA:isProduct, checkoutCTA:isCheckout && cartHasItems,
+      navVisible: s.ready && s.entered && !s.denied && !s.showSuccess && (screen==='catalog'||screen==='cart'||screen==='orders'||screen==='profile'||screen==='addresses'||screen==='about'),
+      tabCatalog:tab(isCatalog), tabCart:cartTabStyle, tabOrders:tab(isOrders), tabProfile:tab(isProfile||isAddresses||isAbout),
+      flying:!!s.flying, flyStyle, cartIconStyle,
+      showSuccess:s.showSuccess,
+      showGate: s.ready && !s.entered && !s.denied,
+      showDenied: s.denied,
+      showSplash: !s.ready,
+    };
+  }
+}
+</script>
+</body>
+</html>
